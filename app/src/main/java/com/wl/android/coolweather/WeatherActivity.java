@@ -1,5 +1,6 @@
 package com.wl.android.coolweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.wl.android.coolweather.gson.Forecast;
 import com.wl.android.coolweather.gson.Weather;
+import com.wl.android.coolweather.service.AutoUpdateService;
 import com.wl.android.coolweather.util.HttpUtil;
 import com.wl.android.coolweather.util.Utility;
 
@@ -140,6 +142,7 @@ public class WeatherActivity extends AppCompatActivity {
             loadBingPic();
         }
 
+
     }
 
     /**
@@ -236,6 +239,9 @@ public class WeatherActivity extends AppCompatActivity {
 
         mWeatherLayoutScrollView.setVisibility(View.VISIBLE); // 数据加载完毕显示ScrollView
 
+        // 启动后台自动更新服务
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     /**
